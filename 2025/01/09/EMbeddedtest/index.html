@@ -14,7 +14,7 @@
 <meta property="og:description" content="前言随着嵌入式技术的快速发展，越来越多的人加入到了这片领域。作为入门学习的第一步，单片机控制 LED 灯（GPIO 输出）是许多同学的第一课。本文将以 STM32F103ZET6 单片机为例，分享如何进行基本的 GPIO 输出操作。 在本系列教程中，我们将简要介绍所用的工具和软件，以及如何从基础配置开始逐步实现 LED 控制，帮助初学者快速入门。我们将使用 STM32CubeMX 和 STM32C">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-01-09T12:00:00.000Z">
-<meta property="article:modified_time" content="2025-01-09T12:37:07.455Z">
+<meta property="article:modified_time" content="2025-01-09T12:39:50.526Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="STM32">
 <meta property="article:tag" content="嵌入式">
@@ -122,7 +122,6 @@
     HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_RESET); // 熄灭LED
     HAL_Delay(1000);                                           // 延时1秒
 &#125;
----
 </code></pre>
 
       
