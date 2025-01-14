@@ -176,7 +176,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/15/GPIO-input/" data-id="cm5wp5vv20000g4wbgmh1bc3k" data-title="GPIO-input" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/15/GPIO-input/" data-id="cm5wpc8ce0000ocwb7m3t5pcb" data-title="GPIO-input" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -232,24 +232,24 @@
 <p>开漏输出的另一个好处在于可以实现**”线与”**功能，所谓的”线与”指的是多个信号线直接连接在一起，只有当所有信号全部为高电平时，合在一起的总线为高电平；只要有任意一个或者多个信号为低电平，则总线为低电平。</p>
 <h1 id="二、配置"><a href="#二、配置" class="headerlink" title="二、配置"></a>二、配置</h1><p>在选择好芯片并进入配置界面后的操作如下进行</p>
 <h2 id="1-RCC"><a href="#1-RCC" class="headerlink" title="1.RCC"></a>1.RCC</h2><p>外部的高速和低速时钟均有三个可选项目，具体情况需根据个人的硬件情况进行个性化配置，一般选择高速时钟下的：<strong>Crystal&#x2F;Ceramic Resonator</strong>（外部晶体&#x2F;陶瓷谐振器）如图2-1所示：</p>
-<img src="/2025/01/14/GPIO-output/2-1%20RCC.png" class title="图片加载失败的描述">
+<img src="/2025/01/14/GPIO-output/2-1.png" class title="2-1.png">
 <h2 id="2-SYS"><a href="#2-SYS" class="headerlink" title="2.SYS"></a>2.SYS</h2><h3 id="1-Debug"><a href="#1-Debug" class="headerlink" title="(1).Debug"></a>(1).Debug</h3><p>在STM32CubeMX中配置系统（SYS）时，关于调试接口的设置是一个重要环节。默认情况下，调试功能可能被启用，但如果不需要实时调试或希望优化资源使用，可以选择关闭调试（即选择“No Debug”选项）。然而为了开发便利，我们一般都保留调试接口。</p>
 <p>在调试协议的选择上，STM32CubeMX提供了SW（Serial Wire）和JTAG两种选项。鉴于SWD（Serial Wire Debug）模式仅需要两个引脚，且兼容性好、调试效率高，因此它是许多开发者的首选。我选择使用<strong>SW协议</strong>。</p>
 <h3 id="2-System-Wake-Up"><a href="#2-System-Wake-Up" class="headerlink" title="(2).System Wake-Up"></a>(2).System Wake-Up</h3><p>System Wake-Up功能允许STM32微控制器在低功耗模式下被特定的外部事件唤醒。这些外部事件可以包括但不限于外部中断、RTC闹钟、USART接收数据等。</p>
 <p>通过配置System Wake-Up功能，微控制器可以在不需要时进入<strong>低功耗模式</strong>以节省电能，同时在需要时能够快速响应外部事件并恢复正常工作。</p>
 <h3 id="3-Timebase-Source"><a href="#3-Timebase-Source" class="headerlink" title="(3).Timebase Source"></a>(3).Timebase Source</h3><p>通过对 Timebase Source进行合理配置以确保程序的正确运行。通过选择合适的Timebase Source（如SysTick或TIMx），并合理配置其参数，可以实现高效、可靠的时间管理功能。</p>
-<img src="/2025/01/14/GPIO-output/2-2%20SYS.png" class title="2-2 SYS">
+<img src="/2025/01/14/GPIO-output/2-2.png" class title="2-2">
 <h2 id="3-时钟树"><a href="#3-时钟树" class="headerlink" title="3.时钟树"></a>3.时钟树</h2><p>依此点击：PLL、Enable CSS、HCLK(MHz)改为<strong>72</strong>之后回车即可。</p>
-<img src="/2025/01/14/GPIO-output/2-3%20time%20tree.png" class title="2-3 time tree.png">
+<img src="/2025/01/14/GPIO-output/2-3.png" class title="2-3.png">
 <h2 id="4-LED引脚配置"><a href="#4-LED引脚配置" class="headerlink" title="4.LED引脚配置"></a>4.LED引脚配置</h2><h3 id="1-选择引脚和模式"><a href="#1-选择引脚和模式" class="headerlink" title="(1).选择引脚和模式"></a>(1).选择引脚和模式</h3><p>根据硬件点击所需要使用的引脚，之后在弹窗里选择<strong>GPIO_Output</strong>，如图2-4 ：</p>
-<img src="/2025/01/14/GPIO-output/2-4%20GPIO_Output.png" class title="2-4 GPIO_Output.png">
+<img src="/2025/01/14/GPIO-output/2-4.png" class title="2-4.png">
 <h3 id="2-进行细节配置"><a href="#2-进行细节配置" class="headerlink" title="(2).进行细节配置"></a>(2).进行细节配置</h3><p>根据硬件进行细节配置，如图2-5 ：</p>
 <h4 id="A-GPIO-output-level"><a href="#A-GPIO-output-level" class="headerlink" title="(A).GPIO output level"></a>(A).GPIO output level</h4><p>Low ：IO初始化默认输出低电平<br>High：IO初始化默认输出高电平</p>
 <h4 id="B-GPIO-mode"><a href="#B-GPIO-mode" class="headerlink" title="(B).GPIO mode"></a>(B).GPIO mode</h4><p>Output Open Drain，开漏输出<br>Output Push Pull   ，推挽输出</p>
 <h4 id="C-GPIO-Pull-up-Pull-down"><a href="#C-GPIO-Pull-up-Pull-down" class="headerlink" title="(C).GPIO Pull-up&#x2F;Pull-down"></a>(C).GPIO Pull-up&#x2F;Pull-down</h4><p>No pull-up and no pull-down，浮空输入，配置为不上拉和下拉<br>Pull-up，上拉输入<br>Pull-down，下拉输入</p>
 <h4 id="D-Maximum-output-speed"><a href="#D-Maximum-output-speed" class="headerlink" title="(D).Maximum output speed"></a>(D).Maximum output speed</h4><p>Low，GPIO速度为低速，通常为2MHZ<br>Medium，GPIO速度为中速，通常为10MHZ<br>High，GPIO速度为高速，通常为50MHZ</p>
 <h4 id="E-User-Laber"><a href="#E-User-Laber" class="headerlink" title="(E).User Laber"></a>(E).User Laber</h4><p>用户标号，给引脚定义一个易识别的名称，以此以提高代码的可读性和可维护性。我直接定义为：<strong>LED</strong>。</p>
-<img src="/2025/01/14/GPIO-output/2-5%20deli.png" class title="2-5 deli.png">
+<img src="/2025/01/14/GPIO-output/2-5.png" class title="2-5.png">
 <h2 id="5-基本定时器（TIM6、TIM7）配置"><a href="#5-基本定时器（TIM6、TIM7）配置" class="headerlink" title="5.基本定时器（TIM6、TIM7）配置"></a>5.基本定时器（TIM6、TIM7）配置</h2><h3 id="1-勾选Activated"><a href="#1-勾选Activated" class="headerlink" title="(1).勾选Activated"></a>(1).勾选Activated</h3><h3 id="2-Prescaler-PSC-16-bits-value"><a href="#2-Prescaler-PSC-16-bits-value" class="headerlink" title="(2).Prescaler (PSC -16 bits value)"></a>(2).Prescaler (PSC -16 bits value)</h3><p>PSC即为<strong>预分频</strong>，其参数配置支持 1~65536<br>我在这里使用<strong>7199</strong></p>
 <h3 id="3-Counter-Period-AutoReload-Register-16-bits-value"><a href="#3-Counter-Period-AutoReload-Register-16-bits-value" class="headerlink" title="(3).Counter Period (AutoReload Register - 16 bits value )"></a>(3).Counter Period (AutoReload Register - 16 bits value )</h3><p>ARR是一个16位的寄存器，这里装着计数器能计数的最大数值。当计数到这个值的时候，如果使能了中断的话，定时器就会产生<strong>溢出中断</strong>。<br>我在这里使用<strong>99</strong></p>
 <h3 id="4-auto-reload-preload"><a href="#4-auto-reload-preload" class="headerlink" title="(4).auto-reload preload"></a>(4).auto-reload preload</h3><p>自动重装载预加载，在此选择Enable</p>
@@ -301,7 +301,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/14/GPIO-output/" data-id="cm5wp5vv8000dg4wb7c3te8f8" data-title="GPIO-output" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/14/GPIO-output/" data-id="cm5wpc8ck0004ocwb1gy65txt" data-title="GPIO-output" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -354,7 +354,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/07/hello-world/" data-id="cm5wp5vv9000eg4wb2c711boe" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/07/hello-world/" data-id="cm5wpc8ch0001ocwbhyac85xj" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
