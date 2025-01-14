@@ -108,7 +108,7 @@
 <p>开漏输出的另一个好处在于可以实现**”线与”**功能，所谓的”线与”指的是多个信号线直接连接在一起，只有当所有信号全部为高电平时，合在一起的总线为高电平；只要有任意一个或者多个信号为低电平，则总线为低电平。</p>
 <h1 id="二、配置"><a href="#二、配置" class="headerlink" title="二、配置"></a>二、配置</h1><p>在选择好芯片并进入配置界面后的操作如下进行</p>
 <h2 id="1-RCC"><a href="#1-RCC" class="headerlink" title="1.RCC"></a>1.RCC</h2><p>外部的高速和低速时钟均有三个可选项目，具体情况需根据个人的硬件情况进行个性化配置，一般选择高速时钟下的：<strong>Crystal&#x2F;Ceramic Resonator</strong>（外部晶体&#x2F;陶瓷谐振器）如图2-1所示：</p>
-<img src="/2025/01/14/GPIO-output/01/14/GPIO-output/2-1%20RCC.png" class title="图片加载失败的描述">
+<img src="/2025/01/14/GPIO-output/2-1%20RCC.png" class title="图片加载失败的描述">
 <p>![](images&#x2F;2-1 RCC.png)<br>![GPIO-output](2-1 RCC.png)</p>
 <h2 id="2-SYS"><a href="#2-SYS" class="headerlink" title="2.SYS"></a>2.SYS</h2><h3 id="1-Debug"><a href="#1-Debug" class="headerlink" title="(1).Debug"></a>(1).Debug</h3><p>在STM32CubeMX中配置系统（SYS）时，关于调试接口的设置是一个重要环节。默认情况下，调试功能可能被启用，但如果不需要实时调试或希望优化资源使用，可以选择关闭调试（即选择“No Debug”选项）。然而为了开发便利，我们一般都保留调试接口。</p>
 <p>在调试协议的选择上，STM32CubeMX提供了SW（Serial Wire）和JTAG两种选项。鉴于SWD（Serial Wire Debug）模式仅需要两个引脚，且兼容性好、调试效率高，因此它是许多开发者的首选。我选择使用<strong>SW协议</strong>。</p>
@@ -169,7 +169,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/14/GPIO-output/" data-id="cm5wngfo10000q8wb6i6t9mfd" data-title="GPIO-output" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/14/GPIO-output/" data-id="cm5wnitq60001acwb1nbkatxb" data-title="GPIO-output" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -220,7 +220,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/07/hello-world/" data-id="cm5wngfo40001q8wb8w8r3dxc" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/07/hello-world/" data-id="cm5wnitq30000acwb98rxg4gi" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
