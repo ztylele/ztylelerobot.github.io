@@ -106,13 +106,13 @@
 <p>IO口引脚电平是真实的外部连接器件电压，电平有不确定性。</p>
 <h2 id="2-上拉输入-GPIO-Mode-IPU"><a href="#2-上拉输入-GPIO-Mode-IPU" class="headerlink" title="2.上拉输入(GPIO_Mode_IPU)"></a>2.上拉输入(GPIO_Mode_IPU)</h2><p>Pull-up</p>
 <p>I&#x2F;O口默认通过电阻上拉到VCC,不接外部器件时可以读出高电平</p>
-
+<img src="/2025/01/15/GPIO-input/1-1.png" class title="1-1.png">
 
 
 
 <h2 id="3-下拉输入-GPIO-Mode-IPD"><a href="#3-下拉输入-GPIO-Mode-IPD" class="headerlink" title="3.下拉输入(GPIO_Mode_IPD)"></a>3.下拉输入(GPIO_Mode_IPD)</h2><p>Pull-down</p>
 <p>I&#x2F;O口默认通过电阻下拉到GND,不接外部器件时可以读出低电平</p>
-
+<img src="/2025/01/15/GPIO-input/1-2.png" class title="1-2.png">
 <p>图1-2 下拉输入</p>
 <h2 id="4-上拉和下拉的区分"><a href="#4-上拉和下拉的区分" class="headerlink" title="4.上拉和下拉的区分"></a>4.上拉和下拉的区分</h2><p>用一句话概括：<br><strong>按键外接GND为上拉，外接VCC为下拉。</strong></p>
 <h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><p><strong>上拉输入</strong>就像是给IO口里面接了一个小小的电阻，这个电阻的另一头连着电源正极（<strong>VCC</strong>）。这样一来，如果外面没接啥东西或者接了个接地的按键没按，IO口就会“知道”是高电平，就像是灯一直是亮着的状态。</p>
@@ -121,31 +121,31 @@
 <p>下拉输入适合那些接电源<strong>正极</strong>的按键。</p>
 <h1 id="二、配置"><a href="#二、配置" class="headerlink" title="二、配置"></a>二、配置</h1><p>在选择好芯片并进入配置界面后的操作如下进行</p>
 <h2 id="1-RCC"><a href="#1-RCC" class="headerlink" title="1.RCC"></a>1.RCC</h2><p>外部的高速和低速时钟均有三个可选项目，具体情况需根据个人的硬件情况进行个性化配置，一般选择高速时钟下的：<strong>Crystal&#x2F;Ceramic Resonator</strong>（外部晶体&#x2F;陶瓷谐振器）如图2-1所示：</p>
-
+<img src="/2025/01/15/GPIO-input/2-1.png" class title="2-1.png">
 <h2 id="2-SYS"><a href="#2-SYS" class="headerlink" title="2.SYS"></a>2.SYS</h2><h3 id="1-Debug"><a href="#1-Debug" class="headerlink" title="(1).Debug"></a>(1).Debug</h3><p>在STM32CubeMX中配置系统（SYS）时，关于调试接口的设置是一个重要环节。默认情况下，调试功能可能被启用，但如果不需要实时调试或希望优化资源使用，可以选择关闭调试（即选择“No Debug”选项）。然而为了开发便利，我们一般都保留调试接口。</p>
 <p>在调试协议的选择上，STM32CubeMX提供了SW（Serial Wire）和JTAG两种选项。鉴于SWD（Serial Wire Debug）模式仅需要两个引脚，且兼容性好、调试效率高，因此它是许多开发者的首选。我选择使用<strong>SW协议</strong>。</p>
 <h3 id="2-System-Wake-Up"><a href="#2-System-Wake-Up" class="headerlink" title="(2).System Wake-Up"></a>(2).System Wake-Up</h3><p>System Wake-Up功能允许STM32微控制器在低功耗模式下被特定的外部事件唤醒。这些外部事件可以包括但不限于外部中断、RTC闹钟、USART接收数据等。</p>
 <p>通过配置System Wake-Up功能，微控制器可以在不需要时进入<strong>低功耗模式</strong>以节省电能，同时在需要时能够快速响应外部事件并恢复正常工作。</p>
 <h3 id="3-Timebase-Source"><a href="#3-Timebase-Source" class="headerlink" title="(3).Timebase Source"></a>(3).Timebase Source</h3><p>通过对 Timebase Source进行合理配置以确保程序的正确运行。通过选择合适的Timebase Source（如SysTick或TIMx），并合理配置其参数，可以实现高效、可靠的时间管理功能。</p>
-
+<img src="/2025/01/15/GPIO-input/2-2.png" class title="2-2.png">
 <h2 id="3-时钟树"><a href="#3-时钟树" class="headerlink" title="3.时钟树"></a>3.时钟树</h2><p>依此点击：PLL、Enable CSS、HCLK(MHz)改为<strong>72</strong>之后回车即可。</p>
-
+<img src="/2025/01/15/GPIO-input/2-3.png" class title="2-3.png">
 <h2 id="4-KEY引脚配置"><a href="#4-KEY引脚配置" class="headerlink" title="4.KEY引脚配置"></a>4.KEY引脚配置</h2><h3 id="1-选择引脚和模式"><a href="#1-选择引脚和模式" class="headerlink" title="(1).选择引脚和模式"></a>(1).选择引脚和模式</h3><p>本文是基于上一篇文章的LED后进行的操作，有不了解的同学可以移步<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_72614426/article/details/140810526?spm=1001.2014.3001.5502">STM32F1基于HAL库的学习记录实用使用教程分享(一、GPIO_Output)</a>进行配置。<br>根据硬件点击所需要使用的引脚，之后在弹窗里选择<strong>GPIO_Input</strong>，如图2-4 ：</p>
-
+<img src="/2025/01/15/GPIO-input/2-4.png" class title="2-4.png">
 
 
 <h3 id="2-进行细节配置"><a href="#2-进行细节配置" class="headerlink" title="(2).进行细节配置"></a>(2).进行细节配置</h3><p>根据硬件进行细节配置，如图2-5 ：</p>
 <h4 id="A-GPIO-Pull-up-Pull-down"><a href="#A-GPIO-Pull-up-Pull-down" class="headerlink" title="(A).GPIO Pull-up&#x2F;Pull-down"></a>(A).GPIO Pull-up&#x2F;Pull-down</h4><p>通过电路的硬件结构进行上拉或下拉配置</p>
 <h4 id="B-User-Laber"><a href="#B-User-Laber" class="headerlink" title="(B).User Laber"></a>(B).User Laber</h4><p>用户标号，给引脚定义一个易识别的名称，以此以提高代码的可读性和可维护性。我直接定义为：<strong>KEY_IN</strong>(在此我仅以PE6举例，其他引脚(按键)同理)。</p>
-
+<img src="/2025/01/15/GPIO-input/2-5.png" class title="2-5.png">
 <h2 id="6-工程项目生成"><a href="#6-工程项目生成" class="headerlink" title="6.工程项目生成"></a>6.工程项目生成</h2><h3 id="1-项目及编译器"><a href="#1-项目及编译器" class="headerlink" title="(1).项目及编译器"></a>(1).项目及编译器</h3><h4 id="A-Project-Name"><a href="#A-Project-Name" class="headerlink" title="(A).Project Name"></a>(A).Project Name</h4><p>给工程起个名字</p>
 <h4 id="B-Project-Location"><a href="#B-Project-Location" class="headerlink" title="(B).Project Location"></a>(B).Project Location</h4><p>给工程选个存放位置，避免中文路径</p>
 <h4 id="C-Toolchain-lDE"><a href="#C-Toolchain-lDE" class="headerlink" title="(C).Toolchain&#x2F;lDE"></a>(C).Toolchain&#x2F;lDE</h4><p>IDE选择，我在这里选择的是MDK-ARM(即Keil 5)</p>
-
+<img src="/2025/01/15/GPIO-input/2-6.png" class title="2-6.png">
 <h3 id="2-代码生成"><a href="#2-代码生成" class="headerlink" title="(2).代码生成"></a>(2).代码生成</h3><p>以下配置勾选后点击界面右上角的：<strong>GENERATE CODE</strong></p>
 <h4 id="A-Copy-all-used-libraries-into-the-project-folder"><a href="#A-Copy-all-used-libraries-into-the-project-folder" class="headerlink" title="(A).Copy all used libraries into the project folder"></a>(A).Copy all used libraries into the project folder</h4><p>将所有使用过的库复制到项目文件夹中 </p>
 <h4 id="B-Generate-peripheral-initialization-as-a-pair-of’c-h’-files-per-peripheral"><a href="#B-Generate-peripheral-initialization-as-a-pair-of’c-h’-files-per-peripheral" class="headerlink" title="(B).Generate peripheral initialization as a pair of’c&#x2F;.h’ files per peripheral"></a>(B).Generate peripheral initialization as a pair of’c&#x2F;.h’ files per peripheral</h4><p>每个外设生成独立的’.c&#x2F;.h’文件</p>
-
+<img src="/2025/01/15/GPIO-input/2-7.png" class title="2-7.png">
 
 <h1 id="三、程序"><a href="#三、程序" class="headerlink" title="三、程序"></a>三、程序</h1><p><strong>sys.h、led.h、stm32f1xx_it.c和stm32f10x_it.h在我的第一篇博客</strong><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_72614426/article/details/140810526?spm=1001.2014.3001.5502">STM32F1基于HAL库的学习记录实用使用教程分享(一、GPIO_Output)</a><strong>里。</strong></p>
 <h2 id="1-HAL-GPIO-ReadPin-GPIO-TypeDef-GPIOx-uint16-t-GPIO-Pin"><a href="#1-HAL-GPIO-ReadPin-GPIO-TypeDef-GPIOx-uint16-t-GPIO-Pin" class="headerlink" title="1.HAL_GPIO_ReadPin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin);"></a>1.HAL_GPIO_ReadPin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin);</h2><p>此函数用于读取引脚状态，通过GPIO的IDR寄存器读取。<br>电平输出HAL函数<br>GPIOX代表目标引脚的端口号，例如GPIOE。<br>GPIO_Pin代表目标引脚的引脚号，例如GPIO_Pin_6。<br>由于我在User Laber中已将PE6定义标签“KEY_IN”故在main.h中可找到宏定义：</p>
@@ -156,12 +156,12 @@
 <h2 id="2-按键消抖"><a href="#2-按键消抖" class="headerlink" title="2.按键消抖"></a>2.按键消抖</h2><h3 id="方法一：软件消抖"><a href="#方法一：软件消抖" class="headerlink" title="方法一：软件消抖"></a>方法一：软件消抖</h3><p>一般来讲，大部分的消抖方案是使用10~20ms的延时程序进行消抖，这是由于在使用机械按键的时候会产生不稳定的前沿抖动，若不消去抖动的话，在CPU的高速运行状态下极易出现判断失误，当抖动消失后再一次检测键的状态，如果仍保持新电平状态，则确认为真正有键按下。如下代码为普遍的写法逻辑。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//有按键(PE6)按下</span></span><br><span class="line"> <span class="keyword">if</span>(HAL_GPIO_ReadPin(KEY_IN_GPIO_Port,KEY_IN_Pin) == GPIO_PIN_RESET)</span><br><span class="line"> &#123;</span><br><span class="line">  <span class="comment">/* 软件消抖 */</span></span><br><span class="line">  HAL_Delay(<span class="number">20</span>);	  </span><br><span class="line">  <span class="comment">/* 等待按键1松开 */</span></span><br><span class="line">  <span class="keyword">if</span>(HAL_GPIO_ReadPin(KEY_IN_GPIO_Port,KEY_IN_Pin) == GPIO_PIN_RESET)</span><br><span class="line">  &#123;</span><br><span class="line">  HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);<span class="comment">/* 翻转LED*/</span></span><br><span class="line">  <span class="keyword">while</span>(HAL_GPIO_ReadPin(KEY_IN_GPIO_Port,KEY_IN_Pin) != GPIO_PIN_SET);<span class="comment">//当按键松开后才执行后续程序，否则将不断在while里循环</span></span><br><span class="line">  &#125;  	</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="comment">/* USER CODE END 3 */</span></span><br></pre></td></tr></table></figure>
 <h3 id="方法二：硬件消抖"><a href="#方法二：硬件消抖" class="headerlink" title="方法二：硬件消抖"></a>方法二：硬件消抖</h3><p>在学习的过程中，我了解到在按键数量不大的情况下可以使用RS触发器进行消抖操作。为了深入理解，我选择用Proteus进行仿真观察一下，如图3-1。由于精力的原因，没做成动画，仅是简单进行截图演示。</p>
-
+<img src="/2025/01/15/GPIO-input/3-1.png" class title="3-1.png">
 <p>对于RS触发器的原理，简单概括为即使有抖动但是在经过双稳态电路之后，便可输出“漂亮”的矩形波<br>其对比效果如下图，黄色为RS触发器，蓝色为普通的按键：</p>
-
-
+<img src="/2025/01/15/GPIO-input/3-2.png" class title="3-2.png">
+<img src="/2025/01/15/GPIO-input/3-3.png" class title="3-3.png">
 <h2 id="3-其他方法"><a href="#3-其他方法" class="headerlink" title="3.其他方法"></a>3.其他方法</h2><p>由于在程序代码中，添加过多延时会浪费CPU资源，造成影响其他功能的使用并产生实时数据滞后性的可能。在后期我将介绍利用中断和ADC的方式进行按键的判断。而在实际应用中，这些方法往往更常用更好用。</p>
-<h1 id="四、演示效果"><a href="#四、演示效果" class="headerlink" title="四、演示效果"></a>四、演示效果</h1>
+<h1 id="四、演示效果"><a href="#四、演示效果" class="headerlink" title="四、演示效果"></a>四、演示效果</h1><img src="/2025/01/15/GPIO-input/vidio.mp4" class title="vidio.mp4">
 
 
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本篇内容略少，但这也是为后期的内容做铺垫衔接。后面的关键按键的内容“干货”会更多一些，敬请期待。</p>
@@ -176,7 +176,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/15/GPIO-input/" data-id="cm5wor53200003kwbap0p34vz" data-title="GPIO-input" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/15/GPIO-input/" data-id="cm5wp5vv20000g4wbgmh1bc3k" data-title="GPIO-input" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -301,7 +301,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/14/GPIO-output/" data-id="cm5wodpci000028wbbtjqh8bv" data-title="GPIO-output" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/14/GPIO-output/" data-id="cm5wp5vv8000dg4wb7c3te8f8" data-title="GPIO-output" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -354,7 +354,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/07/hello-world/" data-id="cm5wodpcl000128wb4opg8irv" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/07/hello-world/" data-id="cm5wp5vv9000eg4wb2c711boe" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
