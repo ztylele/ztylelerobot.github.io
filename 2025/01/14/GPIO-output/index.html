@@ -4,15 +4,29 @@
   <meta charset="utf-8">
   
   
-  <title>Hexo</title>
+  <title>GPIO-output | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="前言本文记录了通过使用STM32F103ZET6单片机进行GPIO_Output的学习 随着嵌入式行业的兴起，于此记录个人的一些学习过程并进行分享，LED的控制即为大部分同学的第一课——点灯（GPIO_Output）。 本系列对于各个软件的下载及部分配置过程将带过，有需要的同学可以参考其他的博客和经验分享。 本系列使用的芯片有STM32F103C8T6、STM32F103ZET6、STM32F74">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GPIO-output">
+<meta property="og:url" content="http://example.com/2025/01/14/GPIO-output/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前言本文记录了通过使用STM32F103ZET6单片机进行GPIO_Output的学习 随着嵌入式行业的兴起，于此记录个人的一些学习过程并进行分享，LED的控制即为大部分同学的第一课——点灯（GPIO_Output）。 本系列对于各个软件的下载及部分配置过程将带过，有需要的同学可以参考其他的博客和经验分享。 本系列使用的芯片有STM32F103C8T6、STM32F103ZET6、STM32F74">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/direct/2fcf7ef4d6884d6d968790db9357326a.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/direct/c2a95c7da27142af934dfea2305236f5.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/direct/9530d22f3c654a2ab67651a4a1f404da.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/direct/3dac51b6f8e7434c9ad47c17777da9c4.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/direct/d3ee4d05abc74f8abfae6cd3961d2655.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/direct/550a4a6b2f244374b59a8e2b4fe81c8f.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/direct/e668f6da384e4267885ab99f023fdfb3.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/direct/6c87b4eb9bbd42a8a13eabefef6c6a0b.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/direct/df64df54b3ff4af7aacf4fce2d0c3ee9.png">
+<meta property="article:published_time" content="2025-01-14T14:45:07.000Z">
+<meta property="article:modified_time" content="2025-01-14T14:45:29.426Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i-blog.csdnimg.cn/direct/2fcf7ef4d6884d6d968790db9357326a.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -67,9 +81,7 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-GPIO-output" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-GPIO-output" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/01/14/GPIO-output/" class="article-date">
   <time class="dt-published" datetime="2025-01-14T14:45:07.000Z" itemprop="datePublished">2025-01-14</time>
@@ -82,8 +94,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/01/14/GPIO-output/">GPIO-output</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      GPIO-output
     </h1>
   
 
@@ -174,129 +186,19 @@
     </footer>
   </div>
   
-</article>
-
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-EMbeddedtest" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/01/09/EMbeddedtest/" class="article-date">
-  <time class="dt-published" datetime="2025-01-09T12:00:00.000Z" itemprop="datePublished">2025-01-09</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>►<a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%A1%AC%E4%BB%B6%E5%BC%80%E5%8F%91/">硬件开发</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/01/09/EMbeddedtest/">STM32F103ZET6 单片机 GPIO 控制入门</a>
-    </h1>
+    <a href="/2025/01/09/EMbeddedtest/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">STM32F103ZET6 单片机 GPIO 控制入门</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>随着嵌入式技术的快速发展，越来越多的人加入到了这片领域。作为入门学习的第一步，单片机控制 LED 灯（<strong>GPIO 输出</strong>）是许多同学的第一课。本文将以 STM32F103ZET6 单片机为例，分享如何进行基本的 GPIO 输出操作。</p>
-<p>在本系列教程中，我们将简要介绍所用的工具和软件，以及如何从基础配置开始逐步实现 LED 控制，帮助初学者快速入门。我们将使用 STM32CubeMX 和 STM32CubeIDE 来进行开发，必要时也会涉及其他的一些软件工具。</p>
-<hr>
-<h1 id="GPIO-输出基本概念"><a href="#GPIO-输出基本概念" class="headerlink" title="GPIO 输出基本概念"></a>GPIO 输出基本概念</h1><h2 id="GPIO-输出模式"><a href="#GPIO-输出模式" class="headerlink" title="GPIO 输出模式"></a>GPIO 输出模式</h2><p>在 STM32 系列单片机中，GPIO 支持以下几种输出模式：</p>
-<ul>
-<li><strong>推挽输出 (Output Push Pull)</strong>: 允许同时输出高低电平并能够直接连接外部电路。常用于LED等简单控制。</li>
-<li><strong>开漏输出 (Output Open Drain)</strong>: 只能输出低电平，高电平需要通过外部上拉电阻实现。多用于需要电平转换或者线与功能的场景。</li>
-</ul>
-<p>了解这些模式可以帮助开发者在硬件设计中做出更合理的选择。</p>
-<h1 id="配置流程"><a href="#配置流程" class="headerlink" title="配置流程"></a>配置流程</h1><h2 id="1-项目创建"><a href="#1-项目创建" class="headerlink" title="1. 项目创建"></a>1. 项目创建</h2><p>通过 STM32CubeMX 创建新项目。在项目配置中，选择 STM32F103ZET6 芯片，并根据自己的硬件情况配置时钟树。一般来说，选择外部晶体谐振器（CRYSTAL）作为时钟源是较为推荐的方式。</p>
-<h2 id="2-配置-GPIO-引脚"><a href="#2-配置-GPIO-引脚" class="headerlink" title="2. 配置 GPIO 引脚"></a>2. 配置 GPIO 引脚</h2><p>选择 GPIO 引脚，并将其模式设置为 <code>GPIO_Output</code>。可以选择推挽输出模式，因为这通常是控制 LED 灯的首选模式。</p>
-<p>另需配置该引脚的初始状态（低电平或高电平）和速率。同时，为了提高代码的可维护性，建议为引脚定义一个用户标签。</p>
-<h2 id="3-定时器配置"><a href="#3-定时器配置" class="headerlink" title="3. 定时器配置"></a>3. 定时器配置</h2><p>为了实现 LED 闪烁效果，通常会使用定时器。通过配置 TIM6 定时器，实现每隔 1000ms 反转一次 LED 状态。这将让我们的 LED 灯以每秒的速度闪烁。</p>
-<h2 id="4-代码实现"><a href="#4-代码实现" class="headerlink" title="4. 代码实现"></a>4. 代码实现</h2><p>在生成的代码中，我们可以利用 HAL 库提供的函数进行 GPIO 输出操作。例如，使用 <code>HAL_GPIO_WritePin()</code> 函数控制 LED 的点亮和熄灭。</p>
-<p>以简单的闪烁程序为例，代码如下：</p>
-<pre><code class="language-c">while (1)
-&#123;
-    HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET);   // 点亮LED
-    HAL_Delay(1000);                                           // 延时1秒
-    HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_RESET); // 熄灭LED
-    HAL_Delay(1000);                                           // 延时1秒
-&#125;
-</code></pre>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/09/EMbeddedtest/" data-id="cm5mqniom0000qowb7e730at9" data-title="STM32F103ZET6 单片机 GPIO 控制入门" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GPIO/" rel="tag">GPIO</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/STM32/" rel="tag">STM32</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag">嵌入式</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
-
-
-
-  
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/01/07/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2025-01-07T15:58:54.459Z" itemprop="datePublished">2025-01-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/01/07/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/07/hello-world/" data-id="cm5moxn3k0000z4wbamjkd441" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
 </section>
