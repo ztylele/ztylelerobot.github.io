@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>External-KEY | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="往期内容STM32F1基于HAL库的学习记录实用使用教程分享(一、GPIO_Output)STM32F1基于HAL库的学习记录实用使用教程分享(二、GPIO_Input 按键) @TOC  前言本文记录了通过使用STM32F103ZET6单片机进行GPIO_Input的学习 随着嵌入式行业的兴起，于此记录个人的一些学习过程并进行分享，本次是单片机控制里很重要的一个概念：外部中断  声明：本文章在编">
+<meta property="og:type" content="article">
+<meta property="og:title" content="External-KEY">
+<meta property="og:url" content="http://example.com/2025/01/15/External-KEY/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="往期内容STM32F1基于HAL库的学习记录实用使用教程分享(一、GPIO_Output)STM32F1基于HAL库的学习记录实用使用教程分享(二、GPIO_Input 按键) @TOC  前言本文记录了通过使用STM32F103ZET6单片机进行GPIO_Input的学习 随着嵌入式行业的兴起，于此记录个人的一些学习过程并进行分享，本次是单片机控制里很重要的一个概念：外部中断  声明：本文章在编">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/direct/2fcf7ef4d6884d6d968790db9357326a.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/direct/c2a95c7da27142af934dfea2305236f5.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/direct/9530d22f3c654a2ab67651a4a1f404da.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/direct/c6a191c1995a4c6a85ab2e5ab61a453b.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/direct/5cdc9bc34e9043bd8e824be2597ceb55.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/direct/511a101313d3497f8bfe72b25a425e03.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/direct/6c87b4eb9bbd42a8a13eabefef6c6a0b.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/direct/df64df54b3ff4af7aacf4fce2d0c3ee9.png">
+<meta property="article:published_time" content="2025-01-15T02:56:38.000Z">
+<meta property="article:modified_time" content="2025-01-15T02:58:01.945Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="STM32">
+<meta property="article:tag" content="嵌入式">
+<meta property="article:tag" content="学习记录">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i-blog.csdnimg.cn/direct/2fcf7ef4d6884d6d968790db9357326a.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-External-KEY" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/01/15/External-KEY/" class="article-date">
+  <time class="dt-published" datetime="2025-01-15T02:56:38.000Z" itemprop="datePublished">2025-01-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%BC%A0%E8%85%BE%E8%B7%83/">张腾跃</a>►<a class="article-category-link" href="/categories/%E5%BC%A0%E8%85%BE%E8%B7%83/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>►<a class="article-category-link" href="/categories/%E5%BC%A0%E8%85%BE%E8%B7%83/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%A1%AC%E4%BB%B6%E5%BC%80%E5%8F%91/">硬件开发</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      External-KEY
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="往期内容"><a href="#往期内容" class="headerlink" title="往期内容"></a>往期内容</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_72614426/article/details/140810526?spm=1001.2014.3001.5502">STM32F1基于HAL库的学习记录实用使用教程分享(一、GPIO_Output)</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_72614426/article/details/140825815">STM32F1基于HAL库的学习记录实用使用教程分享(二、GPIO_Input 按键)</a></p>
+<p>@<a href="%E6%96%87%E7%AB%A0%E7%9B%AE%E5%BD%95">TOC</a></p>
+<hr>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><code>本文记录了通过使用STM32F103ZET6单片机进行GPIO_Input的学习</code></p>
+<p>随着嵌入式行业的兴起，于此记录个人的一些学习过程并进行分享，本次是单片机控制里很重要的一个概念：<strong>外部中断</strong></p>
+<hr>
+<p><code>声明：本文章在编写过程中，我始终致力于尊重并保护所有原创内容及其知识产权。然而，由于信息来源的多样性和复杂性，可能存在个别内容未明确标注出处、存在事实性错误或无意中侵犯了他人的知识产权的情况。对于任何可能存在的上述问题，我深感歉意，并在此提前向受影响的作者表示最诚挚的歉意。我始终秉持着尊重原创、维护知识产权的原则，绝无意侵犯任何人的合法权益。一旦收到您的反馈，我将立即核实并在第一时间内对文章进行修改。这包括但不限于补充相关引用信息、更正错误内容或删除涉嫌侵权的内容。再次感谢您的关注与支持，期待与您共同营造一个更加美好的知识共享空间。新手文章诸多不足，还望海涵。</code></p>
+<h1 id="一、外部中断"><a href="#一、外部中断" class="headerlink" title="一、外部中断"></a>一、外部中断</h1><p>中断机制在计算机系统中区分为硬件中断和软件中断两大类别。<br><strong>硬件中断</strong>源自外部设备，如硬盘I&#x2F;O的信号或通过定时器到达，它们通过发送信号以异步方式请求CPU的注意，即中断的发生与CPU当前执行的程序逻辑无直接关联。<br>外部中断实际上是硬件中断的一个子集。</p>
+<p><strong>软件中断</strong>是由程序内部执行的特定指令（如中断指令或系统调用）所触发，其发生时间与程序执行流程紧密相关，因此被视为同步的。</p>
+<p>这两种中断机制共同协作，确保了计算机系统既能及时响应外部事件，又能灵活管理内部资源和服务调用。</p>
+<h2 id="1-概念"><a href="#1-概念" class="headerlink" title="1.概念"></a>1.概念</h2><p>中断：打断CPU执行正常的程序，转而处理紧急程序，然后返回原暂停的程序继续运行。<br>举例：学习ing——-听到老妈叫：吃饭啦！(中断请求)——-前去干饭——-吃完了——-继续学习</p>
+<h2 id="2-中断的作用"><a href="#2-中断的作用" class="headerlink" title="2.中断的作用"></a>2.中断的作用</h2><p>一般来讲，中断有三个作用：<br><strong>实时控制</strong>：当温度较高时，自动开启空调功能。<br><strong>故障处理</strong>：出现错误时及时修正。<br><strong>数据传输</strong>：串口或其他通信方式进行数据的传输</p>
+<h2 id="3-中断优先级"><a href="#3-中断优先级" class="headerlink" title="3.中断优先级"></a>3.中断优先级</h2><p>在中断处理机制中，优先级系统是为确保系统资源的高效分配和紧急事件的及时处理。</p>
+<p>包括抢占优先级（pre）和响应优先级（sub）两个关键层面。抢占优先级决定了中断的打断能力，即高抢占优先级的中断能够打断正在执行的低抢占优先级中断，确保紧急任务得到优先处理。而响应优先级则在抢占优先级相同的情况下发挥作用，它决定了中断的响应顺序，即响应优先级高的中断会先被执行，但不同响应优先级的中断间不能相互打断。</p>
+<p>当抢占优先级和响应优先级都相同时，自然优先级（通常基于中断向量表中的位置）将作为决定因素，自然优先级越高的中断将先被执行。这里的自然优先级实质上反映了中断在硬件或固件设计中的优先级排序。</p>
+<p>在中断优先级体系中，通常遵循“数值越小，优先级越高”的原则，这意味着更低数值的优先级设置代表更高的中断处理优先级，从而确保系统能够迅速响应最紧急的事件</p>
+<h1 id="二、配置"><a href="#二、配置" class="headerlink" title="二、配置"></a>二、配置</h1><p>在选择好芯片并进入配置界面后的操作如下进行</p>
+<h2 id="1-RCC"><a href="#1-RCC" class="headerlink" title="1.RCC"></a>1.RCC</h2><p>外部的高速和低速时钟均有三个可选项目，具体情况需根据个人的硬件情况进行个性化配置，一般选择高速时钟下的：<strong>Crystal&#x2F;Ceramic Resonator</strong>（外部晶体&#x2F;陶瓷谐振器）如图2-1所示：<br><img src="https://i-blog.csdnimg.cn/direct/2fcf7ef4d6884d6d968790db9357326a.png" alt="图2-1 RCC"></p>
+<h2 id="2-SYS"><a href="#2-SYS" class="headerlink" title="2.SYS"></a>2.SYS</h2><h3 id="1-Debug"><a href="#1-Debug" class="headerlink" title="(1).Debug"></a>(1).Debug</h3><p>在STM32CubeMX中配置系统（SYS）时，关于调试接口的设置是一个重要环节。默认情况下，调试功能可能被启用，但如果不需要实时调试或希望优化资源使用，可以选择关闭调试（即选择“No Debug”选项）。然而为了开发便利，我们一般都保留调试接口。</p>
+<p>在调试协议的选择上，STM32CubeMX提供了SW（Serial Wire）和JTAG两种选项。鉴于SWD（Serial Wire Debug）模式仅需要两个引脚，且兼容性好、调试效率高，因此它是许多开发者的首选。我选择使用<strong>SW协议</strong>。</p>
+<h3 id="2-System-Wake-Up"><a href="#2-System-Wake-Up" class="headerlink" title="(2).System Wake-Up"></a>(2).System Wake-Up</h3><p>System Wake-Up功能允许STM32微控制器在低功耗模式下被特定的外部事件唤醒。这些外部事件可以包括但不限于外部中断、RTC闹钟、USART接收数据等。</p>
+<p>通过配置System Wake-Up功能，微控制器可以在不需要时进入<strong>低功耗模式</strong>以节省电能，同时在需要时能够快速响应外部事件并恢复正常工作。</p>
+<h3 id="3-Timebase-Source"><a href="#3-Timebase-Source" class="headerlink" title="(3).Timebase Source"></a>(3).Timebase Source</h3><p>通过对 Timebase Source进行合理配置以确保程序的正确运行。通过选择合适的Timebase Source（如SysTick或TIMx），并合理配置其参数，可以实现高效、可靠的时间管理功能。<br><img src="https://i-blog.csdnimg.cn/direct/c2a95c7da27142af934dfea2305236f5.png" alt="图2-2 SYS"></p>
+<h2 id="3-时钟树"><a href="#3-时钟树" class="headerlink" title="3.时钟树"></a>3.时钟树</h2><p>依此点击：PLL、Enable CSS、HCLK(MHz)改为<strong>72</strong>之后回车即可。<br><img src="https://i-blog.csdnimg.cn/direct/9530d22f3c654a2ab67651a4a1f404da.png" alt="图2-3 时钟树"></p>
+<h2 id="4-引脚配置"><a href="#4-引脚配置" class="headerlink" title="4.引脚配置"></a>4.引脚配置</h2><h3 id="1-选择引脚和模式"><a href="#1-选择引脚和模式" class="headerlink" title="(1).选择引脚和模式"></a>(1).选择引脚和模式</h3><p>本文是基于第一篇文章的LED后进行的操作，有不了解的同学可以移步<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_72614426/article/details/140810526?spm=1001.2014.3001.5502">STM32F1基于HAL库的学习记录实用使用教程分享(一、GPIO_Output)</a>进行配置。<br>根据硬件点击所需要使用的引脚，之后在弹窗里选择<strong>GPIO_EXIT</strong>，如图2-4 ：<br><img src="https://i-blog.csdnimg.cn/direct/c6a191c1995a4c6a85ab2e5ab61a453b.png" alt="图2-4 GPIO_EXIT"></p>
+<h3 id="2-进行细节配置"><a href="#2-进行细节配置" class="headerlink" title="(2).进行细节配置"></a>(2).进行细节配置</h3><p>根据硬件进行细节配置，如图2-5 ：</p>
+<h4 id="A-GPIO-mode"><a href="#A-GPIO-mode" class="headerlink" title="(A).GPIO mode"></a>(A).GPIO mode</h4><h4 id="External-Interrupt-Mode-with-Rising-edge-trigger-detection"><a href="#External-Interrupt-Mode-with-Rising-edge-trigger-detection" class="headerlink" title="External Interrupt Mode with Rising edge trigger detection"></a>External Interrupt Mode with Rising edge trigger detection</h4><p>上升沿触发外部中断</p>
+<h4 id="External-Interrupt-Mode-with-Falling-edge-trigger-detection"><a href="#External-Interrupt-Mode-with-Falling-edge-trigger-detection" class="headerlink" title="External Interrupt Mode with Falling edge trigger detection"></a>External Interrupt Mode with Falling edge trigger detection</h4><p>下降沿触发外部中断</p>
+<h4 id="External-Interrupt-Mode-with-Rising-Falling-edge-trigger-detection"><a href="#External-Interrupt-Mode-with-Rising-Falling-edge-trigger-detection" class="headerlink" title="External Interrupt Mode with Rising&#x2F;Falling edge trigger detection"></a>External Interrupt Mode with Rising&#x2F;Falling edge trigger detection</h4><p>上升沿或下降沿触发外部中断</p>
+<h4 id="External-Event-Mode-with-Rising-edge-trigger-detection"><a href="#External-Event-Mode-with-Rising-edge-trigger-detection" class="headerlink" title="External Event Mode with Rising edge trigger detection"></a>External Event Mode with Rising edge trigger detection</h4><p>上升沿触发外部事件</p>
+<h4 id="External-Event-Mode-with-Falling-edge-trigger-detection"><a href="#External-Event-Mode-with-Falling-edge-trigger-detection" class="headerlink" title="External Event Mode with Falling edge trigger detection"></a>External Event Mode with Falling edge trigger detection</h4><p>下降沿触发外部事件</p>
+<h4 id="External-Event-ode-with-Rising-Falling-edge-trigger-detection"><a href="#External-Event-ode-with-Rising-Falling-edge-trigger-detection" class="headerlink" title="External Event ode with Rising&#x2F;Falling edge trigger detection"></a>External Event ode with Rising&#x2F;Falling edge trigger detection</h4><p>上升沿或下降沿触发外部事件</p>
+<h4 id="B-GPIO-Pull-up-Pull-down"><a href="#B-GPIO-Pull-up-Pull-down" class="headerlink" title="(B).GPIO Pull-up&#x2F;Pull-down"></a>(B).GPIO Pull-up&#x2F;Pull-down</h4><p>通过电路的硬件结构进行上拉或下拉配置</p>
+<h4 id="C-User-Laber"><a href="#C-User-Laber" class="headerlink" title="(C).User Laber"></a>(C).User Laber</h4><p>用户标号，给引脚定义一个易识别的名称，以此以提高代码的可读性和可维护性。我直接定义为：<strong>KEY</strong>(在此我仅以PE6举例，其他引脚(按键)同理)。<br><img src="https://i-blog.csdnimg.cn/direct/5cdc9bc34e9043bd8e824be2597ceb55.png" alt="图2-5 细节配置"></p>
+<h4 id="D-配置优先级"><a href="#D-配置优先级" class="headerlink" title="(D).配置优先级"></a>(D).配置优先级</h4><h5 id="Priority-Group"><a href="#Priority-Group" class="headerlink" title="Priority Group"></a>Priority Group</h5><p>默认为4个比特位，一般情况下不需要改。</p>
+<h5 id="Preemption-Priority-Sub-Priority"><a href="#Preemption-Priority-Sub-Priority" class="headerlink" title="Preemption Priority &amp; Sub Priority"></a>Preemption Priority &amp; Sub Priority</h5><p>抢占优先级，数字越小，优先级越高<br>若抢占优先级相同，判断子优先级，同样，数字越小，优先级越高<br><img src="https://i-blog.csdnimg.cn/direct/511a101313d3497f8bfe72b25a425e03.png" alt="图2-6 NVIC 优先级"></p>
+<h2 id="6-工程项目生成"><a href="#6-工程项目生成" class="headerlink" title="6.工程项目生成"></a>6.工程项目生成</h2><h3 id="1-项目及编译器"><a href="#1-项目及编译器" class="headerlink" title="(1).项目及编译器"></a>(1).项目及编译器</h3><h4 id="A-Project-Name"><a href="#A-Project-Name" class="headerlink" title="(A).Project Name"></a>(A).Project Name</h4><p>给工程起个名字</p>
+<h4 id="B-Project-Location"><a href="#B-Project-Location" class="headerlink" title="(B).Project Location"></a>(B).Project Location</h4><p>给工程选个存放位置，避免中文路径</p>
+<h4 id="C-Toolchain-lDE"><a href="#C-Toolchain-lDE" class="headerlink" title="(C).Toolchain&#x2F;lDE"></a>(C).Toolchain&#x2F;lDE</h4><p>IDE选择，我在这里选择的是MDK-ARM(即Keil 5)<br><img src="https://i-blog.csdnimg.cn/direct/6c87b4eb9bbd42a8a13eabefef6c6a0b.png" alt="图2-8 项目命名及选择编译器"></p>
+<h3 id="2-代码生成"><a href="#2-代码生成" class="headerlink" title="(2).代码生成"></a>(2).代码生成</h3><p>以下配置勾选后点击界面右上角的：<strong>GENERATE CODE</strong></p>
+<h4 id="A-Copy-all-used-libraries-into-the-project-folder"><a href="#A-Copy-all-used-libraries-into-the-project-folder" class="headerlink" title="(A).Copy all used libraries into the project folder"></a>(A).Copy all used libraries into the project folder</h4><p>将所有使用过的库复制到项目文件夹中 </p>
+<h4 id="B-Generate-peripheral-initialization-as-a-pair-of’c-h’-files-per-peripheral"><a href="#B-Generate-peripheral-initialization-as-a-pair-of’c-h’-files-per-peripheral" class="headerlink" title="(B).Generate peripheral initialization as a pair of’c&#x2F;.h’ files per peripheral"></a>(B).Generate peripheral initialization as a pair of’c&#x2F;.h’ files per peripheral</h4><p>每个外设生成独立的’.c&#x2F;.h’文件<br><img src="https://i-blog.csdnimg.cn/direct/df64df54b3ff4af7aacf4fce2d0c3ee9.png" alt="图2-9 代码生成"></p>
+<h1 id="三、程序"><a href="#三、程序" class="headerlink" title="三、程序"></a>三、程序</h1><p><strong>sys.h、led.h、stm32f1xx_it.c和stm32f10x_it.h在我的第一篇博客</strong><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_72614426/article/details/140810526?spm=1001.2014.3001.5502">STM32F1基于HAL库的学习记录实用使用教程分享(一、GPIO_Output)</a><strong>里。</strong></p>
+<h2 id="1-HAL-GPIO-ReadPin-GPIO-TypeDef-GPIOx-uint16-t-GPIO-Pin"><a href="#1-HAL-GPIO-ReadPin-GPIO-TypeDef-GPIOx-uint16-t-GPIO-Pin" class="headerlink" title="1.HAL_GPIO_ReadPin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin);"></a>1.HAL_GPIO_ReadPin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin);</h2><p>此函数用于读取引脚状态，通过GPIO的IDR寄存器读取。<br>电平输出HAL函数<br>GPIOX代表目标引脚的端口号，例如GPIOE。<br>GPIO_Pin代表目标引脚的引脚号，例如GPIO_Pin_6。<br>在main.h中可找到宏定义：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Private defines -----------------------------------------------------------*/</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> KEY_Pin GPIO_PIN_6</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> KEY_GPIO_Port GPIOE</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> KEY_EXTI_IRQn EXTI9_5_IRQn</span></span><br></pre></td></tr></table></figure>
+<p>设置按键回调函数为</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">/* USER CODE BEGIN 4 */</span></span><br><span class="line">  <span class="type">void</span> <span class="title function_">HAL_GPIO_EXTI_Callback</span><span class="params">(<span class="type">uint16_t</span> GPIO_Pin)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(GPIO_Pin == KEY_Pin)</span><br><span class="line">	&#123;</span><br><span class="line">			<span class="keyword">if</span>(Exit_flag == <span class="number">0</span>)</span><br><span class="line">			&#123;</span><br><span class="line">					Exit_flag = <span class="number">1</span>;</span><br><span class="line">					LED_flag = HAL_GPIO_ReadPin(KEY_GPIO_Port, KEY_Pin);</span><br><span class="line">			&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">  <span class="comment">/* USER CODE END 4 */</span></span><br></pre></td></tr></table></figure>
+<p>在主函数循环内检测</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line"> &#123;</span><br><span class="line">   <span class="comment">/* USER CODE END WHILE */</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">/* USER CODE BEGIN 3 */</span></span><br><span class="line">	<span class="keyword">if</span>(Exit_flag == <span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		Exit_flag = <span class="number">2</span>;</span><br><span class="line">		<span class="keyword">if</span>(LED_flag== GPIO_PIN_RESET)</span><br><span class="line">		&#123;</span><br><span class="line">			HAL_Delay(<span class="number">20</span>);</span><br><span class="line">			<span class="keyword">if</span>(HAL_GPIO_ReadPin(KEY_GPIO_Port, KEY_Pin) == GPIO_PIN_RESET)</span><br><span class="line">			&#123;</span><br><span class="line">				HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);</span><br><span class="line">				Exit_flag = <span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				Exit_flag = <span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(LED_flag== GPIO_PIN_SET)</span><br><span class="line">		&#123;</span><br><span class="line">			HAL_Delay(<span class="number">20</span>);</span><br><span class="line">			<span class="keyword">if</span>(HAL_GPIO_ReadPin(KEY_GPIO_Port, KEY_Pin) == GPIO_PIN_SET)</span><br><span class="line">			&#123;</span><br><span class="line">				HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);</span><br><span class="line">				Exit_flag = <span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				Exit_flag = <span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">  	 	&#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>以此实现按键控制小灯状态的功能。</p>
+<h1 id="四、演示效果"><a href="#四、演示效果" class="headerlink" title="四、演示效果"></a>四、演示效果</h1><p>[video(video-epBRiR9x-1736909571963)(type-csdn)(url-<a target="_blank" rel="noopener" href="https://live.csdn.net/v/embed/443329)(image-https://i-blog.csdnimg.cn/img_convert/a38fef50e9395d4c63c7216c3092f4b5.jpeg)(title-%E5%A4%96%E9%83%A8%E4%B8%AD%E6%96%AD%E6%8C%89%E9%94%AE)]">https://live.csdn.net/v/embed/443329)(image-https://i-blog.csdnimg.cn/img_convert/a38fef50e9395d4c63c7216c3092f4b5.jpeg)(title-外部中断按键)]</a></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本篇内容略少，但这也是为后期的内容做铺垫衔接。后面的内容“干货”会更多一些，敬请期待。</p>
+<p>又是经过一个充实而忙碌的夜晚，深知文章中仍不免有诸多省略和未及细讲之处。对于那些在阅读过程中仍感意犹未尽、存有疑问的同学，建议大家不妨拓宽视野，多阅读几篇来自不同作者、风格各异的优秀文章。相信通过多角度、多层次的学习，你们定能集百家之长从而对单片机有更加深入和全面的理解。</p>
+<p>在此，我的初衷不仅是为初学者提供一份学习路上的指引，也是对自己学习历程的一次回顾与总结。通过分享，我希望能激发更多人对单片机技术的兴趣，共同探索这片充满挑战与机遇的领域。</p>
+<p>为了保持内容的连贯性和避免不必要的重复，我计划在未来的博客中，对于本文中已提及但未深入展开的话题，将通过链接的方式引导大家回到本文进行查阅。同时，我也将不断优化和完善文章内容，力求为大家提供更加准确、全面、易于理解的学习资源。</p>
+<p>下期预告——关于**OLED屏幕（IIC）**的学习分享。</p>
+<p>与此同时我计划将我的微机原理课程设计逐步分享出来</p>
+<p>感谢大家的关注与支持！</p>
+<hr>
+<h1 id="参考文献引用"><a href="#参考文献引用" class="headerlink" title="参考文献引用"></a>参考文献引用</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/2301_79330491/article/details/137960533?ops_request_misc=%257B%2522request%255Fid%2522%253A%252268739526258447604b1f6696a6e932cd%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=68739526258447604b1f6696a6e932cd&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-2-137960533-null-null.142%5Ev101%5Epc_search_result_base8&utm_term=%E5%A4%96%E9%83%A8%E4%B8%AD%E6%96%AD%20HAL&spm=1018.2226.3001.4187">【STM32HAL库】外部中断</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/programmaker3/article/details/112669877">STM32 CubeMX学习：6. 按键的外部中断</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/01/15/External-KEY/" data-id="cm5xbalqb0000mcwb4ey121z5" data-title="External-KEY" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/STM32/" rel="tag">STM32</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" rel="tag">学习记录</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag">嵌入式</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2025/01/15/GPIO-input/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">GPIO-input</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%A0%E8%85%BE%E8%B7%83/">张腾跃</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%A0%E8%85%BE%E8%B7%83/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%A0%E8%85%BE%E8%B7%83/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%A1%AC%E4%BB%B6%E5%BC%80%E5%8F%91/">硬件开发</a></li></ul></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/STM32/" rel="tag">STM32</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" rel="tag">学习记录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag">嵌入式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/STM32/" style="font-size: 10px;">STM32</a> <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" style="font-size: 10px;">学习记录</a> <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" style="font-size: 10px;">嵌入式</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/01/15/External-KEY/">External-KEY</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/15/GPIO-input/">GPIO-input</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/14/GPIO-output/">GPIO-output</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/07/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
